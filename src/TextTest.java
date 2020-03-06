@@ -13,11 +13,11 @@ public class TextTest {
     public static void main(String[] args) {
         try {
             Scanner in = new Scanner(Paths.get("testtext.txt"), "UTF-8");
-            ArrayList<String> textLines = new ArrayList<String>();
+            ArrayList<String> textLines = new ArrayList<>();
             while (in.hasNextLine())
                 textLines.add(in.nextLine());
             //подсчет различных слов в файле
-            Map<String, Integer> oftenWords = new HashMap<String, Integer>();
+            Map<String, Integer> oftenWords = new HashMap<>();
             for (String line : textLines) {
                 String[] words = line.split(" ");
                 for (String word : words)
@@ -30,9 +30,17 @@ public class TextTest {
             Arrays.sort(sortWords, Comparator.comparingInt(String::length).thenComparing(String::toString));
             for (String word : sortWords)
                 System.out.println(word + " - " + oftenWords.get(word));
+
             //текст в обратном порядке
+            System.out.println("\nТекст в обратном порядке строк");
             for (int i = textLines.size(); i > 0; i--)
                 System.out.println(textLines.get(i - 1));
+
+            //текст в обратном порядке с помощью итератора
+            System.out.println("\nТекст в обратном порядке строк с помощью итератора");
+            ReversIterator rIterator = new ReversIterator(textLines);
+            while (rIterator.hasNext())
+                System.out.println(rIterator.next());
 
             System.out.println();
             Scanner userin = new Scanner(System.in);
